@@ -75,7 +75,7 @@ module.exports = videfikri = async (vf = new vf(), message) => {
         // ANTI-VIRTEXT
         if (isGroupMsg && isBotGroupAdmins && !isOwner) {
         if (chats.length > 5000) {
-            await vf.sendTextWithMentions(from, `Terdeteksi @${sender.id} telah mengirim Virtext\nAkan dikeluarkan dari group!`)
+            await vf.sendTextWithMentions(from, `Detectou @${sender.id}enviou Virtext\nSerá removido do grupo!`)
             await vf.removeParticipant(groupId, sender.id)
         }
     }
@@ -130,7 +130,7 @@ module.exports = videfikri = async (vf = new vf(), message) => {
                     await vf.reply(from, 'Error!', id)
                 })
             } else {
-                await vf.reply(from, `Untuk menggunakan ocr\nsilahkan upload atau reply foto dengan perintah ${prefix}ocr\n\nAtau anda juga bisa reply sticker dengan perintah ${prefix}ocr`, id)
+                await vf.reply(from, `Para usar ocr\npor favor carregue ou responda fotos com o pedido ${prefix}ocr\n\nOu você também pode responder ao adesivo com um pedido${prefix}ocr`, id)
             }
             break
             case prefix+'register': //By: Slavyam
@@ -139,10 +139,10 @@ module.exports = videfikri = async (vf = new vf(), message) => {
                 const umurUser = query.substring(query.lastIndexOf('|') + 2)
                 const serialUser = register.createSerial(10)
                 register.addRegisteredUser(sender.id, namaUser, umurUser, time, serialUser, _registered)
-                await vf.reply(from, `*「 REGISTRATION 」*\n\nRegistrasi berhasil!\n\n=======================\n➸ *Nama*: ${namaUser}\n➸ *Umur*: ${umurUser}\n➸ *Waktu pendaftaran*: ${now}\n➸ *Serial*: ${serialUser}\n=======================`, id)
+                await vf.reply(from, `*「 CADASTRO 」*\n\nRegistro com sucesso!\n\n=======================\n➸ *Nome*: ${namaUser}\n➸ *idade*: ${umurUser}\n➸ *Hora do registro*: ${now}\n➸ *Serial*: ${serialUser}\n=======================`, id)
             break
             case prefix+'antiporn'://PREMIUM
-                await vf.reply(from, 'Premium feature!\nContact: wa.me/6285692655520', id)
+                await vf.reply(from, 'Recursos premium!\nContact: wa.me/6285692655520', id)
             break
             /* RANDOM WORDS */
             case prefix+'fakta':
@@ -155,13 +155,13 @@ module.exports = videfikri = async (vf = new vf(), message) => {
                 if (!isRegistered) return await vf.reply(from, msg.notRegistered(pushname), id)
                 const dataquotes = await axios.get(`https://videfikri.com/api/randomquotes/`)
                 const quotes = dataquotes.data.result
-                await vf.reply(from, `➸ *Author*: ${quotes.author}\n➸ *Quotes*: ${quotes.quotes}`, id)
+                await vf.reply(from, `➸ *Autor*: ${quotes.author}\n➸ *Citações*: ${quotes.quotes}`, id)
             break
             /* STICKER MAKER */
             case prefix+'takestick':
                 if (!isRegistered) return await vf.reply(from, msg.notRegistered(pushname), id)
                     if (quotedMsg && quotedMsg.type == 'sticker') {
-                        if (!query.includes('|')) return await vf.reply(from, `Untuk mengubah watermark sticker, reply sticker dengan caption ${prefix}takestick package_name | author_name\n\nContoh: ${prefix}takestick PUNYA GUA | videfikri`, id)
+                        if (!query.includes('|')) return await vf.reply(from, `Para mudar o adesivo de marca d'água, adesivo de resposta com legenda ${prefix}takestick package_nome | autor_name\n\nExemplo: ${prefix}takestick PUNYA GUA | videfikri`, id)
                         await vf.reply(from, msg.wait(), id)
                         const packnames = query.substring(0, query.indexOf('|') - 1)
                         const authors = query.substring(query.lastIndexOf('|') + 2)
@@ -173,27 +173,27 @@ module.exports = videfikri = async (vf = new vf(), message) => {
                             await vf.reply(from, 'Error!', id)
                         })
                     } else {
-                        await vf.reply(from, `Reply sticker yang ingin dicolong dengan caption ${prefix}takestick package_name | author_name\n\nContoh: ${prefix}takestick punya gua | videfikri`, id)
+                        await vf.reply(from, `Responda ao adesivo que deseja incluir com uma legenda ${prefix}takestick package_name | autor_name\n\nExemplo: ${prefix}takestick punya gua | videfikri`, id)
                     }
         break
             case prefix+'sgifwm':
                 if (!isRegistered) return await vf.reply(from, msg.notRegistered(pushname), id)
                 if (isMedia && type === 'video' || mimetype === 'image/gif') {
-                    if (!query.includes('|')) return await vf.reply(from, `Untuk membuat stickergif watermark\ngunakan ${prefix}sgifwm author | packname`, id)
+                    if (!query.includes('|')) return await vf.reply(from, `Para criar uma marca d'água stickergif\nUsar ${prefix}sgifwm autor | packname`, id)
                     const namaPacksgif = query.substring(0, query.indexOf('|') - 1)
                     const authorPacksgif = query.substring(query.lastIndexOf('|') + 2)
                     await vf.reply(from, msg.wait(), id)
                     try {
                         const mediaData = await decryptMedia(message, uaOverride)
                         const videoBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
-                        await vf.sendMp4AsSticker(from, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0 }, { author: `${authorPacksgif}`, pack: `${namaPacksgif}`, keepScale: true })
+                        await vf.sendMp4AsSticker(from, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0 }, { autor: `${authorPacksgif}`, pack: `${namaPacksgif}`, keepScale: true })
                             .then(async () => {
-                                console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
+                                console.log(`Adesivos processados ​​para ${processTime(t, moment())} segundos`)
                                 
                             })
                     } catch (err) {
                         console.error(err)
-                        await vf.reply(from, `Ukuran video terlalu besar\nMaksimal size adalah 1MB!`, id)
+                        await vf.reply(from, `O tamanho do vídeo é muito grande\nO tamanho máximo é 1 MB!`, id)
                     }
                 } else if (isQuotedGif || isQuotedVideo) {
                     const namaPacksgif = query.substring(0, query.indexOf('|') - 1)
@@ -202,17 +202,17 @@ module.exports = videfikri = async (vf = new vf(), message) => {
                     try {
                         const mediaData = await decryptMedia(quotedMsg, uaOverride)
                         const videoBase64 = `data:${quotedMsg.mimetype};base64,${mediaData.toString('base64')}`
-                        await vf.sendMp4AsSticker(from, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0 }, { author: `${authorPacksgif}`, pack: `${namaPacksgif}`, crop: false })
+                        await vf.sendMp4AsSticker(from, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0 }, { autor: `${authorPacksgif}`, pack: `${namaPacksgif}`, crop: false })
                             .then(async () => {
-                                console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
+                                console.log(`Adesivos processados ​​para ${processTime(t, moment())} segundos`)
                                 
                             })
                     } catch (err) {
                         console.error(err)
-                        await vf.reply(from, `Ukuran video terlalu besar\nMaksimal size adalah 1MB!`, id)
+                        await vf.reply(from, `O tamanho do vídeo é muito grande \ nO tamanho máximo é 1 MB!`, id)
                     }
                 } else {
-                    await vf.reply(from, `Untuk membuat stickergif dengan watermark\ngunakan ${prefix}sgifwm author | packname`, id)
+                    await vf.reply(from, `Para fazer stickergif com uma marca d'água\nUsar${prefix}sgifwm author | packname`, id)
                 }
             break
             case prefix+'stickernocrop':
@@ -225,14 +225,14 @@ module.exports = videfikri = async (vf = new vf(), message) => {
                     const _mimetype = isQuotedImage ? quotedMsg.mimetype : mimetype
                     const mediaData = await decryptMedia(encryptMedia, uaOverride)
                     const imageBase64 = `data:${_mimetype};base64,${mediaData.toString('base64')}`
-                    await vf.sendImageAsSticker(from, imageBase64, { keepScale: true, author: 'videfikri', pack: 'VF BOT' })
+                    await vf.sendImageAsSticker(from, imageBase64, { keepScale: true, author: '5521997482887', pack: 'MIKU BOT' })
                     console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                 } catch (err) {
                     console.error(err)
                     await vf.reply(from, 'Error!', id)
                 }
             } else {
-                await vf.reply(from, `Untuk membuat sticker no crop\nsilahkan *upload* atau reply foto dengan caption ${prefix}stnc`, id)
+                await vf.reply(from, `Para fazer um adesivo sem corte \n*carregue* ou responda a foto com legenda ${prefix}stnc`, id)
             }
             break
             case prefix+'sticker':
@@ -245,14 +245,14 @@ module.exports = videfikri = async (vf = new vf(), message) => {
                     const _mimetype = isQuotedImage ? quotedMsg.mimetype : mimetype
                     const mediaData = await decryptMedia(encryptMedia, uaOverride)
                     const imageBase64 = `data:${_mimetype};base64,${mediaData.toString('base64')}`
-                    await vf.sendImageAsSticker(from, imageBase64, { author: 'videfikri', pack: 'VF BOT' })
+                    await vf.sendImageAsSticker(from, imageBase64, { author: '5521997482887', pack: 'MIKU BOT' })
                     console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                 } catch (err) {
                     console.error(err)
                     await vf.reply(from, 'Error!', id)
                 }
             } else {
-                await vf.reply(from, `Untuk membuat sticker\nsilahkan *upload* atau reply foto dengan caption ${prefix}sticker`, id)
+                await vf.reply(from, `Para fazer um adesivo\n* carregue * ou responda a foto com legenda${prefix}sticker`, id)
             }
             break
             case prefix+'stickergif':
@@ -263,31 +263,31 @@ module.exports = videfikri = async (vf = new vf(), message) => {
                     try {
                         const mediaData = await decryptMedia(message, uaOverride)
                         const videoBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
-                        await vf.sendMp4AsSticker(from, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0 }, { author: 'VF BOT', pack: 'videfikri' })
+                        await vf.sendMp4AsSticker(from, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0 }, { author: 'MIKU BOT', pack: '5521997482887' })
                             .then(async () => {
-                                console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
+                                console.log(`Adesivos processados ​​para ${processTime(t, moment())} segundos`)
                                 
                             })
                     } catch (err) {
                         console.error(err)
-                        await vf.reply(from, `Ukuran video terlalu besar\nMaksimal size adalah 1MB!`, id)
+                        await vf.reply(from, `O tamanho do vídeo é muito grande\nO tamanho máximo é 1 MB!`, id)
                     }
                 } else if (isQuotedGif || isQuotedVideo) {
                     await vf.reply(from, msg.wait(), id)
                     try {
                         const mediaData = await decryptMedia(quotedMsg, uaOverride)
                         const videoBase64 = `data:${quotedMsg.mimetype};base64,${mediaData.toString('base64')}`
-                        await vf.sendMp4AsSticker(from, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0 }, { author: 'VF BOT', pack: 'videfikri' })
+                        await vf.sendMp4AsSticker(from, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0 }, { author: 'MIKU BOT', pack: '5521997482887' })
                             .then(async () => {
                                 console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                                 
                             })
                     } catch (err) {
                         console.error(err)
-                        await vf.reply(from, `Ukuran video terlalu besar\nMaksimal size adalah 1MB!`, id)
+                        await vf.reply(from, `O tamanho do vídeo é muito grande\nO tamanho máximo é 1 MB!`, id)
                     }
                 } else {
-                    await vf.reply(from, `Untuk mengconvert GIF/Video menjadi stikergif silahkan upload video/gif dengan caption ${prefix}stikergif`, id)
+                    await vf.reply(from, `Para converter GIF/Os vídeos ficam fixos, envie vídeos/gif com legenda ${prefix}stikergif`, id)
                 }
             break
             /* END OF STICKER MAKER */
@@ -296,36 +296,36 @@ module.exports = videfikri = async (vf = new vf(), message) => {
             case prefix+'igdl':
             case prefix+'ig':
                 if (!isRegistered) return await vf.reply(from, msg.notRegistered(pushname), id)
-                if (!query) return await vf.reply(from, `Untuk mendownload Instagram Post seseorang\ngunakan ${prefix}igdl link_post`, id)
-                if (!isUrl(url) && !url.includes('instagram.com')) return await vf.reply(from, 'Perhatikan! URL harus dari instagram', id)
+                if (!query) return await vf.reply(from, `Para baixar a postagem do Instagram de alguém\nUsar ${prefix}igdl link_post`, id)
+                if (!isUrl(url) && !url.includes('instagram.com')) return await vf.reply(from, 'Preste atenção! O URL deve ser do Instagram', id)
                 await vf.reply(from, msg.wait(), id)
                     downloader.insta(query)
                     .then(async ({ result }) => {
                         if (result.type_post == 'video') {
                             const { full_name, username, caption, like, comment, thumb, video, duration } = await result
-                            await vf.sendFileFromUrl(from, video, 'igdlVFBOT.mp4', `➸ *Username*: ${username}\n➸ *Full Name*: ${full_name}\n➸ *Caption*: ${caption}\n➸ *Likes*: ${like}\n➸ *Comment*: ${comment}\n➸ *Duration*: ${duration}\n\n➸ *URL THUMB*: ${thumb}`, id)
+                            await vf.sendFileFromUrl(from, video, 'igdlVFBOT.mp4', `➸ *Nome do usuário*: ${username}\n➸ *Nome completo*: ${full_name}\n➸ *Caption*: ${caption}\n➸ *Likes*: ${like}\n➸ *Comment*: ${comment}\n➸ *Duração*: ${duration}\n\n➸ *URL THUMB*: ${thumb}`, id)
                         } else if (result.type_post == 'image') {
                             const { fullname, username, img_url, height_width, caption, comment, likes, image_text } = await result
-                            await vf.sendFileFromUrl(from, img_url, 'igDlVFBOT.jpg', `➸ *Username*: ${username}\n➸ *Full Name*: ${fullname}\n➸ *Height Width*: ${height_width}\n➸ *Caption*: ${caption}\n➸ *Comment*: ${comment}\n➸ *Likes*: ${likes}\n➸ *Image Prediction*: ${image_text}`, id)
+                            await vf.sendFileFromUrl(from, img_url, 'igDlVFBOT.jpg', `➸ *Nome do usuário*: ${username}\n➸ *Nome completo*: ${fullname}\n➸ *Height Width*: ${height_width}\n➸ *Caption*: ${caption}\n➸ *Comente*: ${comment}\n➸ *Likes*: ${likes}\n➸ *Image Prediction*: ${image_text}`, id)
                         }
-                        console.log('Success sending Instagram media!')
+                        console.log('Sucesso no envio de mídia do Instagram!')
                     })
                     .catch(async (err) => {
                         console.error(err)
-                        await vf.reply(from, `Ada yang Error!`, id)
+                        await vf.reply(from, `Há um erro!`, id)
                     })
             break
             case prefix+'play':
                 if (!isRegistered) return await vf.reply(from, msg.notRegistered(pushname), id)
-                if (!query) return await vf.reply(from, `Untuk memutar musik dari YouTube\ngunakan ${prefix}play judul_lagu\n\nContoh: ${prefix}play martin garrix`, id)
+                if (!query) return await vf.reply(from, `Para tocar música do YouTube\nUsar ${prefix}play judul_lagu\n\nExemplo: ${prefix}Tocar Martin Garrix`, id)
                 await vf.reply(from, msg.wait(), id)
                 downloader.ytPlay(query)
                 .then(async ({result}) => {
                     const { title, channel, duration, id, thumbnail, views, size, url, description, published_on } = await result
                     if (Number(size.split('MB')[0]) >= 20.00) {
-                        await vf.sendFileFromUrl(from, thumbnail, 'thumbnail.jpg', `➸ *Judul*: ${title}\n➸ *ID*: ${id}\n➸ *Size*: ${size}\n\nGagal, maksimal size adalah *20MB*!\nSilahkan download sendiri melalui URL dibawah:\n${url}`, id)
+                        await vf.sendFileFromUrl(from, thumbnail, 'thumbnail.jpg', `➸ *Título*: ${title}\n➸ *ID*: ${id}\n➸ *Tamanho*: ${size}\n\nFalha, o tamanho máximo é *20 MB*!\nFaça o download você mesmo através do URL abaixo:\n${url}`, id)
                     } else {
-                        await vf.sendFileFromUrl(from, thumbnail, 'thumbnail.jpg', `➸ *Judul*: ${title}\n➸ *Channel*: ${channel}\n➸ *ID*: ${id}\n➸ *Views*: ${views}\n➸ *Duration*: ${duration}\n➸ *Size*: ${size}\n➸ *Published On*: ${published_on}\n➸ *Description*: ${description}`, id)
+                        await vf.sendFileFromUrl(from, thumbnail, 'thumbnail.jpg', `➸ *Título*: ${title}\n➸ *Canal*: ${channel}\n➸ *ID*: ${id}\n➸ *Views*: ${views}\n➸ *Duração*: ${duration}\n➸ *Tamanho*: ${size}\n➸ *Publicado em*: ${published_on}\n➸ *Descrição*: ${description}`, id)
                         await vf.sendFileFromUrl(from, url, 'song.mp3', '', id)
                         console.log('Success sending Play MP3!')
                     }
@@ -516,12 +516,12 @@ module.exports = videfikri = async (vf = new vf(), message) => {
             /* EDUCATION */
             case prefix+'kisahnabi':
                 if (!isRegistered) return await vf.reply(from, msg.notRegistered(pushname), id)
-                if (!query) return await vf.reply(from, `Untuk mencari kisah nabi\ngunakan ${prefix}kisahnabi query\n\nContoh: ${prefix}kisahnabi muhammad`, id)
+                if (!query) return await vf.reply(from, `Para pesquisar a história do profeta\nUsar ${prefix}kisahnabi query\n\nExemplo: ${prefix}conto de muhammad`, id)
                 await vf.reply(from, msg.wait(), id)
                 education.kisahnabi(query)
                 .then(async ({result}) => {
                     const { nama, tahun_kelahiran, usia, tempat_lahir, image, description } = await result
-                    await vf.sendFileFromUrl(from, image, 'kisahnabi.jpg', `➸ *Nama*: ${nama}\n➸ *Tahun Kelahiran*: ${tahun_kelahiran}\n➸ *Usia*: ${usia}\n➸ *Tempat Lahir*: ${tempat_lahir}\n➸ *Deskripsi*: ${description}`, id)
+                    await vf.sendFileFromUrl(from, image, 'kisahnabi.jpg', `➸ *Nome*: ${nama}\n➸ *Ano de nascimento*: ${tahun_kelahiran}\n➸ *Era*: ${usia}\n➸ *Local de nascimento*: ${tempat_lahir}\n➸ *Deskripsi*: ${description}`, id)
                 })
                 .catch(async (err) => {
                     console.error(err)
@@ -546,7 +546,7 @@ module.exports = videfikri = async (vf = new vf(), message) => {
                 await vf.reply(from, msg.wait(), id)
                 education.covidindo()
                 .then(async ({result}) => {
-                    await vf.reply(from, `➸ *Negara*: ${result.country}\n➸ *Positif*: ${result.positif}\n➸ *Negatif*: ${result.negatif}\n➸ *Meninggal*: ${result.meinggal}\n➸ *Sembuh*: ${result.sembuh}\n➸ *Dalam Perawatan*: ${result.dalam_perawatan}`, id)
+                    await vf.reply(from, `➸ *País*: ${result.country}\n➸ *Positifo*: ${result.positif}\n➸ *Negatifo*: ${result.negatif}\n➸ *Faleceu*: ${result.meinggal}\n➸ *Ser curado*: ${result.sembuh}\n➸ *Em Cuidado*: ${result.dalam_perawatan}`, id)
                 })
                 .catch(async (err) => {
                     console.error(err)
@@ -600,33 +600,33 @@ module.exports = videfikri = async (vf = new vf(), message) => {
                 if (!isGroupAdmins) return await vf.reply(from, msg.adminOnly(), id)
                 if (!isBotGroupAdmins) return await vf.reply(from, msg.botNotAdmin(), id)
                 if (ar[0] === 'on') {
-                    if (isDetectorOn) return await vf.reply(from, `Gagal, Anti group-link sudah pernah di nyalakan sebelumnya`, id)
+                    if (isDetectorOn) return await vf.reply(from, `Falha, o anti-link de grupo foi ativado antes`, id)
                     _antilink.push(groupId)
                     fs.writeFileSync('./database/antilink.json', JSON.stringify(_antilink))
-                    await vf.reply(from, `*...:* *ANTI GROUP LINK*\n\nPerhatian untuk member grup ${(name || formattedTitle)}\nGroup ini telah dipasang anti-link, jika anda mengirim link group lain, maka akan otomatis terkick!`, id)
+                    await vf.reply(from, `*...:* *ANTI LINK GRUPO*\n\nAtenção aos membros do grupo ${(name || formattedTitle)}\nEste grupo instalou anti-link, se você enviar outro link de grupo, vai clicar automaticamente!`, id)
                 } else if (ar[0] === 'off') {
                     _antilink.splice(groupId, 1)
                     fs.writeFileSync('./database/antilink.json', JSON.stringify(_antilink))
-                    await vf.reply(from, `Berhasil menonaktifkan anti-link`, id)
+                    await vf.reply(from, `Anti-link desativado com sucesso`, id)
                 } else {
-                    await vf.reply(from, `Untuk melindungi grup ini dari link grup lain\nketik ${prefix}antilink on --enable\n${prefix}antilink off --disable`, id)
+                    await vf.reply(from, `Para proteger este grupo de outros links de grupo\Usar${prefix}antilink on --habilitar\n${prefix}antilink off --desabilitar`, id)
                 }
             break
-            case prefix+'antivirtext':
+            case prefix+'antivírus':
                 if (!isGroupMsg) return await vf.reply(from, msg.groupOnly(), id)
                 if (!isGroupAdmins) return await vf.reply(from, msg.adminOnly(), id)
                 if (!isBotGroupAdmins) return await vf.reply(from, msg.botNotAdmin(), id)
                 if (ar[0] === 'on') {
-                    if (isAntiVirtextOn) return await vf.reply(from, `Gagal, Anti Virtext sudah pernah dinyalakan sebelumnya`, id)
+                    if (isAntiVirtextOn) return await vf.reply(from, `Falha, o antivírus foi ativado antes`, id)
                     _antivirtext.push(groupId)
                     fs.writeFileSync('./database/antivirtext.json', JSON.stringify(_antivirtext))
-                    await vf.reply(from, `*...:* *ANTI VIRTEXT*\n\nPerhatian untuk member grup ${(name || formattedTitle)}\nGroup ini telah dipasang anti virtext, jika anda mengirim virtext, maka akan otomatis terkick!`, id)
+                    await vf.reply(from, `*...:* *ANTI VÍRUS*\n\nAtenção aos membros do grupo${(name || formattedTitle)}\nEste grupo instalou antivírus,se você postar virtext, ele irá clicar automaticamente!`, id)
                 } else if (ar[0] === 'off') {
                     _antivirtext.splice(groupId, 1)
                     fs.writeFileSync('./database/antivirtext.json', JSON.stringify(_antivirtext))
                     await vf.reply(from, `Berhasil menonaktifkan anti-virtext`, id)
                 } else {
-                    await vf.reply(from, `Untuk melindungi grup ini dari virtext\nketik ${prefix}antivirtext on --enable\n${prefix}antivirtext off --disable`, id)
+                    await vf.reply(from, `Para proteger este grupo de virtext\nketik ${prefix}antivirtext on --enable\n${prefix}antivirtext off --disable`, id)
                 }
             break
             /* END OF MODERATION CMDS */
@@ -634,12 +634,12 @@ module.exports = videfikri = async (vf = new vf(), message) => {
             /* MUSIC */
             case prefix+'chord':
                 if (!isRegistered) return await vf.reply(from, msg.notRegistered(pushname), id)
-                if (!query) return await vf.reply(from, `Format salah!\nuntuk mencari chord sebuah lagu\nketik ${prefix}chord judul_lagu`, id)
+                if (!query) return await vf.reply(from, `Formato incorreto!\npara procurar os acordes de uma música\nmodelo ${prefix}acorde título_música`, id)
                 try {
                 await vf.reply(from, msg.wait(), id)
                 const chord = await axios.get(`https://videfikri.com/api/chord/?query=${query}`)
                 const datachord = chord.data.result
-                await vf.reply(from, `➸ *Title*: ${datachord.title}\n➸ *Chord*: ${datachord.chord}`, id)
+                await vf.reply(from, `➸ *Título*: ${datachord.title}\n➸ *Acorde*: ${datachord.chord}`, id)
                 } catch (err) {
                     console.error(err)
                     await vf.reply(from, 'Error!', id)
@@ -705,12 +705,12 @@ module.exports = videfikri = async (vf = new vf(), message) => {
             break
             case prefix+'npm':
                 if (!isRegistered) return await vf.reply(from, msg.notRegistered(pushname), id)
-                if (!query) return await vf.reply(from, `Format salah!\ngunakan ${prefix}npm package_name`, id)
+                if (!query) return await vf.reply(from, `Formato incorreto!\nUsar ${prefix}npm package_name`, id)
                 try {
                     await vf.reply(from, msg.wait(), id)
                     const datanpm = await axios.get(`https://videfikri.com/api/npm/?query=${query}`)
                     const npm = datanpm.data.result
-                    await vf.reply(from, `➸ *ID*: ${npm.id}\n➸ *Package Name*: ${npm.name}\n➸ *REV*: ${npm.rev}\n➸ *Version Latest*: ${npm.version_latest}\n➸ *Description*: ${npm.description}\n➸ *Homepage*: ${npm.homepage}\n➸ *Author Name*: ${npm.author_name}\n➸ *License*: ${npm.license}\n➸ *Maintainer*: ${npm.maintainer}\n➸ *Email*: ${npm.email}\n➸ *Created At*: ${npm.created_at}\n➸ *Last Modified*: ${npm.last_modified}`, id)
+                    await vf.reply(from, `➸ *ID*: ${npm.id}\n➸ *Package Name*: ${npm.name}\n➸ *REV*: ${npm.rev}\n➸ *Última versão*: ${npm.version_latest}\n➸ *Descrição*: ${npm.description}\n➸ *Homepage*: ${npm.homepage}\n➸ *Author Name*: ${npm.author_name}\n➸ *License*: ${npm.license}\n➸ *Maintainer*: ${npm.maintainer}\n➸ *Email*: ${npm.email}\n➸ *Created At*: ${npm.created_at}\n➸ *Last Modified*: ${npm.last_modified}`, id)
                 } catch (err) {
                     console.error(err)
                     await vf.reply(from, 'Error!', id)
@@ -718,11 +718,11 @@ module.exports = videfikri = async (vf = new vf(), message) => {
             break
             case prefix+'emot':
                 if (!isRegistered) return await vf.reply(from, msg.notRegistered(pushname), id)
-                if (!query) return await vf.reply(from, `Format salah!\nuntuk convert emoji to sticker\ngunakan ${prefix}emot emoji_nya`, id)
+                if (!query) return await vf.reply(from, `Formato incorreto!\nconverter emoji em adesivo\nUsar ${prefix}emot emoji_nya`, id)
                 try {
                 await vf.reply(from, msg.wait(), id)
                 const emoji = emojiUnicode(query)
-                await vf.sendImageAsSticker(from, await vf.download(`https://videfikri.com/api/emojitopng/?emojicode=${emoji}`), { author: 'videfikri', pack: 'VF BOT' })
+                await vf.sendImageAsSticker(from, await vf.download(`https://videfikri.com/api/emojitopng/?emojicode=${emoji}`), { author: '5521997482887', pack: 'MIKU BOT' })
                 } catch (err) {
                     console.error(err)
                     await vf.reply(from, 'Error!', id)
@@ -743,7 +743,7 @@ module.exports = videfikri = async (vf = new vf(), message) => {
             break
             case prefix+'nulis':
                 if (!isRegistered) return await vf.reply(from, msg.notRegistered(pushname), id)
-                if (!query) return await vf.reply(from, `Untuk membuat bot menulis di buku\ngunakan ${prefix}nulis\n\nContoh: ${prefix}nulis pikri gans bet`, id)
+                if (!query) return await vf.reply(from, `Para fazer um bot escrever em um livro\nUsar ${prefix}nulis\n\nExemplo: ${prefix}nulis aposta pikri gans`, id)
                 try {
                 await vf.reply(from, msg.wait(), id)
                 const nulis = await axios.get(`https://videfikri.com/api/nulis/?query=${query}`)
@@ -777,11 +777,11 @@ module.exports = videfikri = async (vf = new vf(), message) => {
             case prefix+'menu':
             case prefix+'help':
                 await vf.reply(from, msg.menu(pushname), id)
-                .then(() => ((isGroupMsg) && (isGroupAdmins)) ? vf.sendText(from, `Menu Admin Grup: *${prefix}menuadmin*`) : null)
+                .then(() => ((isGroupMsg) && (isGroupAdmins)) ? vf.sendText(from, `Menu de administração do grupo: *${prefix}menuadmin*`) : null)
             break
             default:
                 if (isCmd) {
-                    await vf.reply(from, `Maaf ${pushname}!\nCommand *${command}* tidak ada dalam daftar *${prefix}menu*`, id)
+                    await vf.reply(from, `Maaf ${pushname}!\nCommand *${command}*não está na lista *${prefix}menu*`, id)
                 }
         }
     } catch (err) {
