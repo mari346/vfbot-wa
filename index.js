@@ -17,7 +17,7 @@ const start = async (vf = new vf()) => {
     })
 
     vf.onAddedToGroup(async (chat) => {
-        await vf.sendText(chat.groupMetadata.id, 'Maaf, bot ini tidak tersedia untuk grup!')
+        await vf.sendText(chat.groupMetadata.id, 'Desculpe, Este bot não está disponível para o grupo!')
         await vf.leaveGroup(chat.groupMetada.id)
     })
 
@@ -26,9 +26,9 @@ const start = async (vf = new vf()) => {
     })
 
     vf.onIncomingCall(async (call) => {
-        await vf.sendText(call.peerJid, `Kamu telah menelpon BOT\nMaaf kamu akan diblockir!\nChat owner: wa.me/${ownerNumber} agar dibuka blok-nya!`)
+        await vf.sendText(call.peerJid, `Você chamou o BOT\nDesculpe, você será bloqueado!\nChat owner: wa.me/${ownerNumber} a fim de ser desbloqueado!`)
         await vf.contactBlock(call.peerJid)
-            .then(() => console.log(`Seseorang menelpon BOT, dan telah diblokir. ID: ${call.peerJid}`))
+            .then(() => console.log(`Alguém chamou BOT, e foi bloqueado. ID: ${call.peerJid}`))
     })
 }
 create(options(start))
