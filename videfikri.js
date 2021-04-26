@@ -75,7 +75,7 @@ module.exports = videfikri = async (vf = new vf(), message) => {
         // ANTI-VIRTEXT
         if (isGroupMsg && isBotGroupAdmins && !isOwner) {
         if (chats.length > 5000) {
-            await vf.sendTextWithMentions(from, `Terdeteksi @${sender.id} telah mengirim Virtext\nAkan dikeluarkan dari group!`)
+            await vf.sendTextWithMentions(from, `Detectou @${sender.id} enviou Virtext\nSerá removido do grupo!`)
             await vf.removeParticipant(groupId, sender.id)
         }
     }
@@ -130,7 +130,7 @@ module.exports = videfikri = async (vf = new vf(), message) => {
                     await vf.reply(from, 'Error!', id)
                 })
             } else {
-                await vf.reply(from, `Untuk menggunakan ocr\nsilahkan upload atau reply foto dengan perintah ${prefix}ocr\n\nAtau anda juga bisa reply sticker dengan perintah ${prefix}ocr`, id)
+                await vf.reply(from, `Para usar ocr\npor favor carregue ou responda fotos com o pedido ${prefix}ocr\n\nAtau anda juga bisa reply sticker dengan perintah ${prefix}ocr`, id)
             }
             break
             case prefix+'register': //By: Slavyam
